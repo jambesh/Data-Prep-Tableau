@@ -1,6 +1,6 @@
-Objective : <br/>
+<b>Objective : </b>
 Wanted to find which Baby name famous in USA ?
-Where to get data ? <br>
+<b>Where to get data ? </b>
 SSA maintain the names from 1880 in  SSA website https://www.ssa.gov/oact/babynames/limits.html.
 Download the national data(7MB) , which will download the file in .zip format in names.zip  and contain data from 1880.
 Why we need cleanup and what is the problem in the files?
@@ -8,7 +8,7 @@ Why we need cleanup and what is the problem in the files?
 1) All the files  are in the format  <font color=red>yobXXXX.txt</font> ,contain the data for year mentioned in file name.
 2) Each file contain three fields:  The name, the gender (M or F)  and the number of babies of that gender  for the year mentioned in the file name.
 
-Challenges: <br>
+<b>Challenges: </b>
 As Year is part of file name and not part of data in file name, If we have to find a particular name trend over the year (how popular a name is) we first need to parse each of the 100+ file and extract the name and then have the year concat to the file content.
 
 <B><U>Solution:</U></B.
@@ -17,7 +17,7 @@ While this can be done using Python/R through a scrip
 2) Extract the  year from the file name
 3) Append the year to the content of the file like :  YEAR:NAME:GENDER:NUMBER OF BABY OF THAT GENDER IN THAT YEAR
 
-Will do it using Tableau Prep : <br>
+Will do it using Tableau Prep :
 1) Open Tableau Prep.
 2) Unzip the names.zip file that was downloaded from SSA website.
 3) Connect to text file and use "Multiple file with pattern" - this will scan all the files in the name directory as all file have similar naming convention.
