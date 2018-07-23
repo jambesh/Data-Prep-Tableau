@@ -1,34 +1,51 @@
 Objective :
-Wanted to find which Baby name famous in USA ?
+Find which Baby names are famous in USA since 1880 ?
+
 Where to get data ? 
-SSA maintain the names from 1880 in  SSA website https://www.ssa.gov/oact/babynames/limits.html.
-Download the national data(7MB) , which will download the file in .zip format in names.zip  and contain data from 1880.
+Social Security (SSA) maintain the names from 1880 in  SSA website .
+Download the national data(7MB) , which will download the name file in .zip format as names.zip .
+
 Why we need cleanup and what is the problem in the files?
 
-1) All the files  are in the format  <font color=red>yobXXXX.txt</font> ,contain the data for year mentioned in file name.
+1) All the files in names.zip folder are in format  yobXXXX.txt  (xxxx are YEAR) and contain the data for year mentioned in file name.
 2) Each file contain three fields:  The name, the gender (M or F)  and the number of babies of that gender  for the year mentioned 
 in the file name.
 
-Challenges:
-As Year is part of file name and not part of data in file name, If we have to find a particular name trend over the year
-(how popular a name is) we first need to parse each of the 100+ file and extract the name and then have the year concat to the file content.
+e.g  : 
+yob1880.txt
+---------------
+William,M,300
+
+This means there are 300 name  'William' in 1880 (Gender Male).
+
+
+As Year is part of the file name itself and not part of data in file name, It is not possible to find a particular name trend over the year without data cleansing. So, we first need to parse each of the 100+ file and extract the  year  from the file name and concat that to the file content.
+
+expected file content:
+1880,William,M,300
 
 Solution:
-While this can be done using Python/R through a scrip 
-1 ) Read each of the file
+While this can be done using Python/R through a script
+1) Read each of the file name (Loop)
 2) Extract the  year from the file name
 3) Append the year to the content of the file like :  YEAR:NAME:GENDER:NUMBER OF BABY OF THAT GENDER IN THAT YEAR
+4) use dplyr/ggplot2 (R)
 
-Will do it using Tableau Prep :
+if you want to do in R way - you can refer the link
+https://billpetti.github.io/2017-08-17-exploring-trends-baby-names-from-scratch-r/
+
+
+We Will do it using Tableau Prep :
 1) Open Tableau Prep.
-2) Unzip the names.zip file that was downloaded from SSA website.
-3) Connect to text file and use "Multiple file with pattern" - this will scan all the files in the name directory as all file 
-have similar naming convention.
-4) Pivot the data 
-5) Rename the fields appropiately (Name,Gender,Count) 
-6) Bringing the Year from file name to the content : - parse the field that filename  ( 1- remove the letters this will leave year. 2)
-split the field and it will leave year in one field...)
-7) rename the year field and remove the unwanted field .
+2) Download national file from https://www.ssa.gov/oact/babynames/limits.html and Unzip the names.zip file that was downloaded from SSA website 
+3) Connect to text file from tableau prep and use "Multiple file with wild Union" - this will scan all the files in the name directory as all file have similar naming convention.
+45) Rename the fields appropiately (Name,Gender,Count) 
+6) Bringing the Year from file name to the content :
+- parse the field (file paths) that has all file name   
+- split the field by (dot .) and it will split filename and extension.
+- Chose the filename part and Clean-->Remove letters 
+- This will now give us the Year we want
+7) rename the year field and remove the unwanted field.
 8) Run the flow to produce output in CSV or tde or Hyper file which Tableau can directly open and start analyze.
 
 
