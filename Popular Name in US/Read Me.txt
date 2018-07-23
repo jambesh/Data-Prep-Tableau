@@ -1,0 +1,52 @@
+
+Objective :
+Find which Baby names are famous in USA since 1880 ?
+
+Where to get data ? 
+Social Security (SSA) maintain the names from 1880 in  SSA website .
+Download the national data(7MB) , which will download the name file in .zip format as names.zip .
+
+Why we need cleanup and what is the problem in the files?
+
+1) All the files in names.zip folder are in format  yobXXXX.txt  (xxxx are YEAR) and contain the data for year mentioned in file name.
+2) Each file contain three fields:  The name, the gender (M or F)  and the number of babies of that gender  for the year mentioned 
+in the file name.
+
+e.g  : 
+yob1880.txt
+---------------
+William,M,300
+
+This means there are 300 name  'William' in 1880 (Gender Male).
+
+
+As Year is part of the file name itself and not part of data in file name, It is not possible to find a particular name trend over
+the year without data cleansing. So, we first need to parse each of the 100+ file and extract the  year  from the file name and 
+
+concat that to the file content.
+
+expected file content:
+1880,William,M,300
+
+Solution:
+While this can be done using Python/R through a script
+1) Read each of the file name (Loop)
+2) Extract the  year from the file name
+3) Append the year to the content of the file like :  YEAR:NAME:GENDER:NUMBER OF BABY OF THAT GENDER IN THAT YEAR
+4) use dplyr/ggplot2 (R)
+
+if you want to do in R way - you can refer the link
+https://billpetti.github.io/2017-08-17-exploring-trends-baby-names-from-scratch-r/
+
+
+We Will do it using Tableau Prep :
+1) Open Tableau Prep.
+2) Download national file from https://www.ssa.gov/oact/babynames/limits.html and Unzip the names.zip file that was downloaded 
+from SSA website 
+3) Connect to text file from tableau prep and use "Multiple file with wild Union" - this will scan all the files in the
+name directory as all file have similar naming convention.
+45) Rename the fields appropiately (Name,Gender,Count) 
+6) Bringing the Year from file name to the content :
+- Auto Split the field  "file paths" that has all file name and tableau is smart enought to spit the years out of it..
+7) rename the year field and remove the unwanted field.
+8) Run the flow to produce output in CSV or tde or Hyper file which Tableau can directly open and start analyze.
