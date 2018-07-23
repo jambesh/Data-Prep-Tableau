@@ -41,10 +41,7 @@ We Will do it using Tableau Prep :
 3) Connect to text file from tableau prep and use "Multiple file with wild Union" - this will scan all the files in the name directory as all file have similar naming convention.
 45) Rename the fields appropiately (Name,Gender,Count) 
 6) Bringing the Year from file name to the content :
-- parse the field (file paths) that has all file name   
-- split the field by (dot .) and it will split filename and extension.
-- Chose the filename part and Clean-->Remove letters 
-- This will now give us the Year we want
+- Auto Split the field  "file paths" that has all file name and tableau is smart enought to spit the years out of it..
 7) rename the year field and remove the unwanted field.
 8) Run the flow to produce output in CSV or tde or Hyper file which Tableau can directly open and start analyze.
 
